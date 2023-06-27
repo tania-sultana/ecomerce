@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use Illuminate\Support\Str;
+use App\Models\Category;
+
+
+
 class CategoryController extends Controller
 {
     /**
@@ -23,7 +27,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.  
      */
     public function store(Request $request)
     {
@@ -32,8 +36,17 @@ class CategoryController extends Controller
             'description'=>'required',
             'image'=>'required|mimes:png,jpeg'
         ]);
-    }
+        $image = $request->file('image')->store('public/files');
+        Category::create([
+            'name'=>$request->name,
+            'slug'=>Str::slug($request->name), 
+            'description'=>$request->description,
+            'image'=>$image
+        ]);
+        return redirect()->back()->with('message','Category created successfully');
 
+    }
+ 
     /**
      * Display the specified resource.
      */

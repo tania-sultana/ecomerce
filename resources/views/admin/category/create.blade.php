@@ -10,6 +10,11 @@
     </div>
 
     <div class="row justify-content-center">
+        @if(Session::has('message')) 
+        <div class="alert alert-success">
+            {{Session::get('message')}}</div>
+            @endif
+
         <div class="col-lg-10">
             <form action="{{route('category.store')}}" method="POST"
             enctype="multipart/form-data">@csrf
@@ -47,7 +52,8 @@
                 <label class="custom-file-label" for="
                 customFile">Choose file</label>
                 <input type="file" class="
-                custom-file-input @error('image') is-invalid @enderror" id="customFile" name="
+                custom-file-input @error('image') 
+                is-invalid @enderror" id="customFile" name="
                 image">
                 @error('image')
                                     <span class="invalid-feedback" role="alert">
