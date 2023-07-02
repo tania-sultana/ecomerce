@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::get();
+        return view('admin.category.index',compact('categories'));  
     }
 
     /**
@@ -34,7 +35,7 @@ class CategoryController extends Controller
         $this->validate($request,[
             'name'=>'required|unique:categories',
             'description'=>'required',
-            'image'=>'required|mimes:png,jpeg'
+            'image'=>'required|mimes:png,jpg,jpeg'
         ]);
         $image = $request->file('image')->store('public/files');
         Category::create([
@@ -42,6 +43,7 @@ class CategoryController extends Controller
             'slug'=>Str::slug($request->name), 
             'description'=>$request->description,
             'image'=>$image
+            
         ]);
         return redirect()->back()->with('message','Category created successfully');
 

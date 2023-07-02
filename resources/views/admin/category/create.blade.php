@@ -25,7 +25,7 @@
                     Create Category</h6>
                </div>
                <div class="card-body">
-               <div class="form group">
+               <div class="form-group">
                 <label for="">Name</label>
                 <input type="text" name="name" class="
                 form-control @error('name') is-invalid @enderror" id="" aria-describedby=""
@@ -36,7 +36,7 @@
                                     </span>
                                 @enderror
             </div>
-            <div class="form group">
+            <div class="form-group">
                 <label for="">Description</label>
                 <textarea name="description" class="
                 form-control @error('description') is-invalid @enderror"></textarea>
@@ -46,12 +46,14 @@
                                     </span>
                                 @enderror
             </div>
-
-            <div class="form group">
+    
+            <div class="form-group">
                 <div class="custom-file">
                 <label class="custom-file-label" for="
                 customFile">Choose file</label>
-                <input type="file" class="
+                <input type="file" 
+                name="image"
+                class="
                 custom-file-input @error('image') 
                 is-invalid @enderror" id="customFile" name="
                 image">
