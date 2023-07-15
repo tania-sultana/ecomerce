@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
@@ -46,7 +46,6 @@ class CategoryController extends Controller
             
         ]);
         return redirect()->back()->with('message','Category created successfully');
-
     }
  
     /**
@@ -78,6 +77,11 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::find($id);
+        $filaname = $category->image;
+        $category->delete();
+        Storage::delete($filaname);
+        return redirect()->back()->with('message','Category deleted successfully');
+        
     }
 }

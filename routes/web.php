@@ -27,6 +27,7 @@ Route::resource('category', App\Http\Controllers\CategoryController::class);
 
 Route::get('/index/test',function () {
     return view('test');
+    
 });
 
 Auth::routes(); 

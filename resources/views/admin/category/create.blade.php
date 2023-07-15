@@ -49,14 +49,11 @@
     
             <div class="form-group">
                 <div class="custom-file">
-                <label class="custom-file-label" for="
-                customFile">Choose file</label>
-                <input type="file" 
+                <label class="custom-file-label" for="customFile" id="xyz">Choose file</label>
+                <input type="file"
                 name="image"
-                class="
-                custom-file-input @error('image') 
-                is-invalid @enderror" id="customFile" name="
-                image">
+                class="custom-file-input @error('image') 
+                is-invalid @enderror" id="customFile" name="image">
                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,7 +67,15 @@
             </div>
           </div>
         </form>
+       <script>
+        function upload_img(){
+            var fileName = document.getElementById('customFile').files[0].name; 
+            document.getElementById('xyz').innerHTML = fileName;
+
+        }
        
+        setInterval(upload_img,1000);
+        </script>
             
         </div>
     </div>
