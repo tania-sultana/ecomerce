@@ -2,11 +2,11 @@
 @section('content')
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Category Tables</h1>
+            <h1 class="h3 mb-0 text-gray-800">SubCategory Tables</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
               <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active" aria-current="page">Category Tables</li>
+              <li class="breadcrumb-item active" aria-current="page">SubCategory Tables</li>
             </ol>
           </div>
 
@@ -26,27 +26,23 @@
                     <thead class="thead-light">
                       <tr>
                         <th>SN</th>
-                        <th>Image</th>
                         <th>Name</th>
-                        <th>Description</th>
+                        <th>Category</th>
                         <th>Action</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                    @if(count($categories)>0)
-                    @foreach($categories as $key => $category)
+                    @if(count($subcategories)>0)
+                    @foreach($subcategories as $key => $subcategory)
                       <tr>
                         <td><a href="#">{{$key+1}}</a></td>
-                        <td><img src="
-                        {{Storage::url($category->image)}}" width="
-                    100"></td>
-                        <td>{{$category->name}}</td>
-                        <td>{{$category->description}}</td>
-                        <td><a href="{{route('category.edit',[$category->id])}}"><button class="btn btn-primary">Edit</button></a></td>
+                        <td>{{$subcategory->name}}</td>
+                        <td>{{$subcategory->category->name}}</td>
+                        <td><a href="{{route('subcategory.edit',[$subcategory->id])}}"><button class="btn btn-primary">Edit</button></a></td>
                         <td>
-                          <form action="{{route('category.destroy',
-                            [$category->id])}}" method="POST" onsubmit="return confirmDelete()">@csrf
+                          <form action="{{route('subcategory.destroy',
+                            [$subcategory->id])}}" method="POST" onsubmit="return confirmDelete()">@csrf
                             {{method_field('DELETE')}}
                             <button type="submit" class="btn 
                             btn-danger">Delete</button>
@@ -57,7 +53,7 @@
                       </tr>  
                       @endforeach
                       @else
-                      <td>No category created yet</td>
+                      <td>No subcategory created yet</td>
                       @endif
                     </tbody>
                   </table>

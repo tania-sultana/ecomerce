@@ -20,15 +20,21 @@
   <script src="{{asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>  
 
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+
   <script type="text/javascript">
   function confirmDelete(){
     return confirm('Are you sure you want to delete?');}
     </script> 
 
-  <script type="text/javascript">
-  $(document).ready(function() {$('#summernote').summernote();});</script> 
-  <script type="text/javascript">
-  $(document).ready(function() {$('#summernote1').summernote();});</script> 
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#summernote').summernote();
+    });
+
+    $(document).ready(function() {$('#summernote1').summernote();
+    });
+  </script> 
   
 </body>
 

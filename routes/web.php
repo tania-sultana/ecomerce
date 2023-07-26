@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,15 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('subcategories/{id}',[ProductController::class,'loadSubCategories']);
 Route::get('/index',function () {
     return view('admin.dashboard');
 });
 
 Route::resource('category', App\Http\Controllers\CategoryController::class);
+Route::resource('subcategory', App\Http\Controllers\SubcategoryController::class);
+Route::resource('product', App\Http\Controllers\ProductController::class);
 
 Route::get('/index/test',function () {
     return view('test');

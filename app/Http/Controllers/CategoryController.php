@@ -45,7 +45,11 @@ class CategoryController extends Controller
             'image'=>$image
             
         ]);
-        return redirect()->back()->with('message','Category created successfully');
+        
+        return redirect('/category')->with('message','Category created successfully');
+        
+        
+
     }
  
     /**
@@ -61,7 +65,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        return view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -69,7 +74,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::find($id);
+        $image = $category->image;
+        if($request->file('image')){
+            $image = $request->file('image')->store('public/files');
+            Storage::delete($category->image);
+        }
+        $category->name= $request->name;
+        $category->description= $request->description;
+        $category->image=$image;
+        $category->save();
+        return redirect('/category')->with('message','Category updated successfully');
+
     }
 
     /**
