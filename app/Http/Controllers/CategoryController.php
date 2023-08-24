@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
-
-
+use Illuminate\Support\Facades\DB;
+use App\Models\Subcategory;
 
 class CategoryController extends Controller
 {
@@ -57,7 +57,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sub_category = DB::table('subcategories')->where('category_id',$id)->pluck('name','id');
+
+        return $sub_category;
     }
 
     /**

@@ -88,8 +88,8 @@
             <div class="form-group">
                 <div class="custom-file">
                 <label id="xyz">Choose Category</label>
-                <select name="category" class="form-control @error('category') is-invalid @enderror">
-                    <option value="">select</option>
+                <select name="category" onchange="getResults(event)" class="form-control @error('category') is-invalid @enderror">
+                    <option class ="categoryList" value="">select</option>
 
                     @foreach(App\Models\Category::all() as $category)
                      <option value="{{$category->id}}">{{$category->name}}</option>
@@ -105,13 +105,52 @@
             <div class="form-group">
                
                 <label id="xyz">Choose Subcategory</label>
-                <select name="subcategory" class="form-control @error('category') is-invalid @enderror">
+                <select name="subcategory" id="subcategory" class="form-control @error('category') is-invalid @enderror">
                     <option value="">select</option>
 
-                   
                 </select>
                 
             </div>
+            <script type="text/javascript">
+
+                function getResults(evt){
+                    
+                    var cat_id =evt.target.value;
+                    console.log(cat_id);
+                    var url = "http://127.0.0.1:8000/category/"+cat_id;
+                    $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "JSON",
+                    success: function(res)
+                    {
+                        // amusing res = {"3":"home","4":"home duplex"}; 
+                        var html = "";
+                        html += "<option value=\"\">Select</option>";
+                        $.each(res, function (key, value) {
+                            html += "<option value="+key+">"+value+"</option>";
+                        });
+                        $("#subcategory").html(html);
+                    }
+                });
+                }
+
+
+
+            //     setInterval(function () {
+            //         $('.categoryList').on('click', function(){
+            //     var cat_id = $(this).attr('value');
+
+            //     var url = "http://127.0.0.1:8000/category/"+cat_id;
+            //     console.log(url);
+           
+            //     });
+            // },500);
+
+
+
+                
+                </script>
 
             <button type="submit" class="btn mt-4  btn-primary">
             Submit</button>
