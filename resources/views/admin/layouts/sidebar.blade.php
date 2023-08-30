@@ -3,7 +3,7 @@
         <div class="sidebar-brand-icon">
           <img src="{{asset('admin/img/logo/logo2.png')}}">
         </div>
-        <div class="sidebar-brand-text mx-3">OnlineBusiness</div>
+        <div class="sidebar-brand-text mx-3">GroceryShop</div>
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
@@ -119,9 +119,20 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
+        <!--<a class="nav-link" href="charts.html">-->
+         <!-- <i class="fas fa-fw fa-chart-area"></i>-->
           <span>Charts</span>
+          <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-fw fa-chart-area"></i>
+
+          </a>
+                                    
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
         </a>
       </li>
       <hr class="sidebar-divider">
