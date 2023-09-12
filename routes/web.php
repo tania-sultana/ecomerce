@@ -75,8 +75,8 @@ Route::get('/categories/{name}',[FrontProductListController::class,'allProduct']
 Route::get('/addToCart/{product}',[CartController::class,'addToCart'])->name('add.cart');
 
 Route::get('/cart',[CartController::class,'showCart'])->name('cart.show');
-Route::post('/products/{product}',[CartController::class,'updateCart'])->name('cart.update');
-Route::post('/products/{product}',[CartController::class,'removeCart'])->name('cart.remove');
+Route::post('/products/update/{product}',[CartController::class,'updateCart'])->name('cart.update');
+Route::post('/products/remove/{product}',[CartController::class,'removeCart'])->name('cart.remove');
 
 
 Auth::routes();

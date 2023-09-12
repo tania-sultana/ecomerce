@@ -34,7 +34,22 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                        <?php
+                                use App\Models\Cart;
+                                if(session()->has('cart')){
+                                    $cart = new Cart(session()->get('cart'));
+                                }else{
+                                    $cart = new Cart();
+                                }
+                            ?>
+                        
+                            <a class="nav-link" href="/cart"> 
+                            <span class="badge badge-pill badge-primary" style="color:cadetblue; float:right;margin-bottom:-10px;">{{$cart->totalQty}}</span> 
+                            Cart</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
