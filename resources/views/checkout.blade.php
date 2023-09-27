@@ -73,7 +73,13 @@
   </tbody>
 </table>
 <hr>
-Total Price:${{$cart->totalPrice}}
+Total Price:${{$cart->totalPrice}} 
+<hr>
+@if(auth()->user()->account_balance - $cart->totalPrice >0)
+Remaining Balance: ${{auth()->user()->account_balance - $cart->totalPrice}}
+@else
+Insufficient Balance
+@endif
 </div>
 
  	<div class="col-md-6">
@@ -107,23 +113,15 @@ Total Price:${{$cart->totalPrice}}
                         <label>Postal code</label>
                         <input type="text" name="postalcode" id="postalcode" class="form-control" required="">
                       </div>
-                      <div class="">
-              <input type="hidden" name="amount" value="{{$amount}}">
 
 
-                <div class="">
-                <label for="card-element">
-                    Credit or debit card
-                  </label>
-                  <div id="card-element">
-                    <!-- A Stripe Element will be inserted here. -->
-                  </div>
 
-                  <!-- Used to display form errors. -->
-                  <div id="card-errors" role="alert"></div>
-                </div>
-
-                <button class="btn btn-primary mt-4" type="submit">Submit Payment</button>
+                      @if(auth()->user()->account_balance - $cart->totalPrice >0)
+                      <button class="btn btn-primary mt-4" type="submit">Submit Payment</button>
+                      @else
+                      <button class="btn btn-primary mt-4" disabled type="submit">Submit Payment</button>
+                      @endif
+                
    
             </form>
             </div>
@@ -133,7 +131,6 @@ Total Price:${{$cart->totalPrice}}
 </div>
 
 
-<script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
   // Create a Stripe client.
 window.onload=function(){

@@ -8,7 +8,6 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\User;
 use App\Mail\Sendmail;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 class CartController extends Controller
 {
     public function addToCart(Product $product){
@@ -72,31 +71,26 @@ class CartController extends Controller
     }
 
     public function charge(Request $request){
-        $charge = Stripe::charges()->create([
-            'currency'=>"USD",
-            'source'=>$request->stripeToken,
-            'amount'=>$request->amount,
-            'description'=>'Test'
-        ]);
 
-        $chargeId = $charge['id'];
         if(session()->has('cart')){
             $cart = new Cart(session()->get('cart'));
         }else{
             $cart = null;
         } 
       //  \Mail::to(auth()->user()->email)->send(new Sendmail($cart));
+        $user_balance =auth()->user()->account_balance;
 
-      
-
-        if($chargeId){
+        if($user_balance >= $request->amount){
             auth()->user()->orders()->create([
 
                 'cart'=>serialize(session()->get('cart'))
             ]);
 
             session()->forget('cart');
-            notify()->success(' Transaction completed!');
+            notify()->success('Transaction completed!');
+            User::where('id', auth()->user()->id)->update(array('account_balance' => $user_balance - $request->amount));
+            
+            
             return redirect()->to('/');
 
         }else{
@@ -107,10 +101,14 @@ class CartController extends Controller
     //for loggedin user
     public function order(){
         $orders = auth()->user()->orders;
+        
         $carts =$orders->transform(function($cart,$key){
-            return unserialize($cart->cart);
-
+            return array(
+                "cart" => unserialize($cart->cart),
+                "status" => $cart->status
+            );
         });
+        // dd($carts);
         return view('order',compact('carts'));
 
     }
@@ -124,9 +122,20 @@ class CartController extends Controller
         $user = User::find($userid);
         $orders = $user->orders->where('id',$orderid);
         $carts =$orders->transform(function($cart,$key){
-            return unserialize($cart->cart);
-
+            return array(
+                "orderid" => $cart->id,
+                "cart" => unserialize($cart->cart),
+                "status" => $cart->status
+            );
         });
+        // dd($carts);
         return view('admin.order.show',compact('carts'));
+    }
+
+    public function confirmOrder($order_id){
+        // dd("hellow");
+        Order::where('id', $order_id)->update(array('status' => "Delivered"));
+
+        return redirect('/orders');
     }
 }

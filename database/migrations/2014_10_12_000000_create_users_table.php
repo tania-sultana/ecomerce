@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
+            $table->integer('account_balance')->default(0);
             $table->integer('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();

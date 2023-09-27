@@ -5,30 +5,30 @@
     <main role="main">
 
     <div class="container">
-      <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
 
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
-    @if(count($sliders)>0)
+  @if(count($sliders)>0)
     @foreach($sliders as $key=> $slider)
-
-    <div class="carousel-item {{$key == 0 ? 'active' : ''}} ">
-      <img src="{{Storage::url($slider->image)}}" >
+    <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+      <img src="{{Storage::url($slider->image)}}" class="d-block w-100" style="height: 24rem; overflow:hidden;" alt="...">
+      
     </div>
     @endforeach
-    @endif
-
-    
-
+  @endif
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
+
+
+
 </div>
 
   <div class="container">
@@ -107,12 +107,13 @@
                 
             </div>
             </div>
-            <div class="carousel-item ">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-item">
             <div class="row">
-                @foreach($randomItemProducts as $product)
+              @foreach($randomItemProducts as $product)
 
                 <div class="col-4">
-                            <div class="card mb-4 shadow-sm">
+                  <div class="card mb-4 shadow-sm">
                     <img src="{{Storage::url($product->image)}}" height="200" style="width: 100%">
                     <div class="card-body">
                         <p><b>{{$product->name}}</b></p>
@@ -128,24 +129,24 @@
                     </div>
                     </div>
                 </div>
-                </div>
-                @endforeach
+              </div>
+              @endforeach
             
             </div>
-            </div>
-            
-        
+            </div>      
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+        
     </div>
   </div>
+</div>
 
 
 
