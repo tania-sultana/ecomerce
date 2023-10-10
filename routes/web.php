@@ -11,6 +11,7 @@ use App\Http\Controllers\RechargeCardController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,7 @@ Route::get('/subcatories/{id}',[ProductController::class,'loadSubCategories']);
 Route::get('/recharge-cards',[RechargeCardController::class,'index'])->middleware('auth')->name('recharge-cards');
 Route::get('/recharge',[RechargeCardController::class,'recharge'])->middleware('auth')->name('recharge');
 Route::post('/recharge-done',[RechargeCardController::class,'recharge_done'])->middleware('auth')->name('recharge-done');
+Route::post('/review',[ReviewController::class,'store'])->middleware('auth')->name('review');
 
 Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/dashboard',function () {

@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 <body>
     <div id="app">
@@ -101,4 +102,13 @@
         </main>
     </div>
 </body>
+<script src="{{asset('admin\vendor\jquery\jquery.min.js')}}">
+
+</script>
+
+<script src="{{asset('admin\vendor\bootstrap\js\bootstrap.min.js')}}">
+
+    </script>
+
+
 </html>

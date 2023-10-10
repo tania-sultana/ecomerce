@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Slider;
+use App\Models\Review;
 class FrontProductListController extends Controller
 {
     public function index(){
@@ -25,13 +26,26 @@ class FrontProductListController extends Controller
 
     public function show($id){
         $product = Product::find($id);
+        $ratings = Review::where('product_id','=',$id)->get();;
+
+        $ave_rating = 0;
+        $cou = 0;
+        foreach($ratings as $rating){
+            $ave_rating+=$rating->rating;
+            $cou+=1;
+        }
+        if($cou && $ave_rating){
+            $ave_rating = $ave_rating/$cou;
+        }
+        // dd($ave_rating);
+
         $productFromSameCategories = Product::inRandomOrder()
             ->where('category_id',$product->category_id)
             ->where('id','!=',$product->id)
             ->limit(3)
             ->get();
 
-        return view('show',compact('product','productFromSameCategories'));
+        return view('show',compact('product','productFromSameCategories','ave_rating'));
     }
 
     public function allProduct($name,Request $request){

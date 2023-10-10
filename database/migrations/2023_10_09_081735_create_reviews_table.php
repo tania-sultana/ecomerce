@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->string('status')->default('Pending');
-            $table->text('cart');
+            $table->unsignedInteger('product_id');
+            $table->string('review')->nullable();
+            $table->decimal('rating')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('reviews');
     }
 };
